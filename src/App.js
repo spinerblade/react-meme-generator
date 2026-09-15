@@ -1,23 +1,15 @@
 import './App.css';
-import logo from './logo.svg';
+import { useState } from 'react';
+import MemeGenerator from './MemeGenerator';
 
 export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img
+        src="https://api.memegen.link/images/ds/top/bottom.png?height=450&width=800 "
+        alt="ds-small_file-high_quality.png"
+      />
+      <MemeGenerator />
     </div>
   );
 }
