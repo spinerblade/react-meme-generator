@@ -1,5 +1,4 @@
-import { doc } from 'prettier';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function MemeGenerator() {
   const [topText, setTopText] = useState(' ');
