@@ -22,12 +22,10 @@
     ]
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
     "@upleveled/react-scripts": "5.1.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "sass": "1.104.0",
-    "tailwindcss": "^4.3.3"
+    "sass": "1.104.0"
   },
   "devDependencies": {
     "@jest/globals": "^30.5.1",
@@ -43,7 +41,6 @@
     "eslint-config-upleveled": "^10.0.4",
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.1",
-    "jest-watch-typeahead": "^3.0.1",
     "prettier": "^3.9.6",
     "stylelint": "^17.15.0",
     "stylelint-config-upleveled": "^2.0.5",
