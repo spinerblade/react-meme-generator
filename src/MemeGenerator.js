@@ -1,39 +1,109 @@
-import { useState } from 'react';
+import { doc } from 'prettier';
+import { useEffect, useState } from 'react';
 
 export default function MemeGenerator() {
-  const [topName, setTopName] = useState('Enter Text for Top');
-  const [bottomName, setBottomName] = useState('Enter Text for Bottom');
-  const [memeName, setMemeName] = useState('');
+  const [topText, setTopText] = useState(' ');
+  const [inputTopText, setInputTopText] = useState('');
+  const [bottomText, setBottomText] = useState(' ');
+  const [inputBottomText, setInputBottomText] = useState('');
+  const [memeName, setMemeName] = useState('bender');
+  const [inputMemeName, setInputMemeName] = useState('Enter Meme Name');
   return (
     <>
       <div>
         <h1>MemeGenerator</h1>
       </div>
-      <input
-        value={memeName}
-        onChange={(event) => {
-          setMemeName(event.currentTarget.value);
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          setMemeName(inputMemeName);
         }}
-      />
-      <div>Meme Name: {memeName}</div>
-      <input
-        value={topName}
-        onChange={(event) => {
-          setTopName(event.currentTarget.value);
+      >
+        <label htmlFor="memeTemplate">Meme template</label>
+        <input
+          id="memeTemplate"
+          value={inputMemeName}
+          onChange={(event) => {
+            setInputMemeName(event.currentTarget.value);
+          }}
+        />
+        <div>
+          <button>Generate Template</button>
+        </div>
+        <div>Meme Name: {memeName}</div>
+      </form>
+
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          setTopText(inputTopText);
         }}
-      />
-      <div>Top Name: {topName}</div>
-      <input
-        value={bottomName}
-        onChange={(event) => {
-          setBottomName(event.currentTarget.value);
+      >
+        <label htmlFor="topText">Top text</label>
+        <input
+          id="topText"
+          value={inputTopText}
+          onChange={(event) => {
+            setInputTopText(event.currentTarget.value);
+          }}
+        />
+        <div>
+          <button>Set Top Text</button>
+        </div>
+        <div>Top Text: {topText}</div>
+      </form>
+
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          setBottomText(inputBottomText);
         }}
-      />
-      <div>Bottom Name: {bottomName}</div>
+      >
+        <label htmlFor="bottomText">Bottom text</label>
+        <input
+          id="bottomText"
+          value={inputBottomText}
+          onChange={(event) => {
+            setInputBottomText(event.currentTarget.value);
+          }}
+        />
+        <div>
+          <button>Set Bottom Text</button>
+        </div>
+        <div>Bottom Text: {bottomText}</div>
+      </form>
       <img
-        src={`https://api.memegen.link/images/${memeName}/${topName}/${bottomName}.png?height=450&width=800`}
+        data-test-id="meme-image"
+        src={`https://api.memegen.link/images/${memeName}/${topText}/${bottomText}.png`}
         alt="meme.png"
       />
+
+      <div>
+        <button
+          onClick={() => {
+            fetch(
+              `https://api.memegen.link/images/${memeName}/${topText}/${bottomText}.png`,
+            )
+              .then((response) => {
+                return response.blob();
+              })
+              .then((blob) => {
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${memeName}-${topText}-${bottomText}.png`;
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }}
+        >
+          Download
+        </button>
+      </div>
     </>
   );
 }
