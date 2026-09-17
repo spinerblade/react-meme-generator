@@ -1,12 +1,34 @@
 import { useState } from 'react';
 
 export default function MemeGenerator() {
-  const [topText, setTopText] = useState(' ');
+  const [topText, setTopText] = useState('');
   // const [inputTopText, setInputTopText] = useState('');
-  const [bottomText, setBottomText] = useState(' ');
+  const [bottomText, setBottomText] = useState('');
   // const [inputBottomText, setInputBottomText] = useState('');
   const [memeName, setMemeName] = useState('bender');
   const [inputMemeName, setInputMemeName] = useState('Enter Meme Name');
+
+  function encodeMemeText(text) {
+    const trimmed = text.trim();
+    if (trimmed === '') {
+      return '_';
+    }
+    return trimmed.replace(/ /g, '_');
+  }
+
+  function buildMemeUrl(name, top, bottom) {
+    const trimmedTop = top.trim();
+    const trimmedBottom = bottom.trim();
+
+    if (trimmedTop === '' && trimmedBottom === '') {
+      return `https://api.memegen.link/images/${name}.png`;
+    }
+
+    return `https://api.memegen.link/images/${name}/${encodeMemeText(
+      trimmedTop,
+    )}/${encodeMemeText(trimmedBottom)}.png`;
+  }
+
   return (
     <>
       <div>
@@ -73,16 +95,14 @@ export default function MemeGenerator() {
       {/* </form> */}
       <img
         data-test-id="meme-image"
-        src={`https://api.memegen.link/images/${memeName}/${topText}/${bottomText}.png`}
+        src={buildMemeUrl(memeName, topText, bottomText)}
         alt="meme.png"
       />
 
       <div>
         <button
           onClick={() => {
-            fetch(
-              `https://api.memegen.link/images/${memeName}/${topText}/${bottomText}.png`,
-            )
+            fetch(buildMemeUrl(memeName, topText, bottomText))
               .then((response) => {
                 return response.blob();
               })
