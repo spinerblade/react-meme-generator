@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 export default function MemeGenerator() {
   const [topText, setTopText] = useState(' ');
-  const [inputTopText, setInputTopText] = useState('');
+  // const [inputTopText, setInputTopText] = useState('');
   const [bottomText, setBottomText] = useState(' ');
-  const [inputBottomText, setInputBottomText] = useState('');
+  // const [inputBottomText, setInputBottomText] = useState('');
   const [memeName, setMemeName] = useState('bender');
   const [inputMemeName, setInputMemeName] = useState('Enter Meme Name');
   return (
@@ -32,45 +32,45 @@ export default function MemeGenerator() {
         <div>Meme Name: {memeName}</div>
       </form>
 
-      <form
+      {/* <form
         onSubmit={(event) => {
           event.preventDefault();
           setTopText(inputTopText);
         }}
-      >
-        <label htmlFor="topText">Top text</label>
-        <input
-          id="topText"
-          value={inputTopText}
-          onChange={(event) => {
-            setInputTopText(event.currentTarget.value);
-          }}
-        />
-        <div>
+      > */}
+      <label htmlFor="topText">Top text</label>
+      <input
+        id="topText"
+        value={topText}
+        onChange={(event) => {
+          setTopText(event.currentTarget.value);
+        }}
+      />
+      {/* <div>
           <button>Set Top Text</button>
-        </div>
-        <div>Top Text: {topText}</div>
-      </form>
+        </div> */}
+      <div>Top Text: {topText}</div>
+      {/* </form> */}
 
-      <form
+      {/* <form
         onSubmit={(event) => {
           event.preventDefault();
           setBottomText(inputBottomText);
         }}
-      >
-        <label htmlFor="bottomText">Bottom text</label>
-        <input
-          id="bottomText"
-          value={inputBottomText}
-          onChange={(event) => {
-            setInputBottomText(event.currentTarget.value);
-          }}
-        />
-        <div>
+      > */}
+      <label htmlFor="bottomText">Bottom text</label>
+      <input
+        id="bottomText"
+        value={bottomText}
+        onChange={(event) => {
+          setBottomText(event.currentTarget.value);
+        }}
+      />
+      {/* <div>
           <button>Set Bottom Text</button>
-        </div>
-        <div>Bottom Text: {bottomText}</div>
-      </form>
+        </div> */}
+      <div>Bottom Text: {bottomText}</div>
+      {/* </form> */}
       <img
         data-test-id="meme-image"
         src={`https://api.memegen.link/images/${memeName}/${topText}/${bottomText}.png`}
