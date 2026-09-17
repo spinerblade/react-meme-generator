@@ -65,7 +65,7 @@ export default function MemeGenerator() {
         id="topText"
         value={topText}
         onChange={(event) => {
-          setTopText(event.currentTarget.value);
+          setTopText(event.target.value);
         }}
       />
       {/* <div>
@@ -85,7 +85,7 @@ export default function MemeGenerator() {
         id="bottomText"
         value={bottomText}
         onChange={(event) => {
-          setBottomText(event.currentTarget.value);
+          setBottomText(event.target.value);
         }}
       />
       {/* <div>
