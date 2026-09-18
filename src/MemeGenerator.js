@@ -2,11 +2,9 @@ import { useState } from 'react';
 
 export default function MemeGenerator() {
   const [topText, setTopText] = useState('');
-  // const [inputTopText, setInputTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
-  // const [inputBottomText, setInputBottomText] = useState('');
   const [memeName, setMemeName] = useState('bender');
-  const [inputMemeName, setInputMemeName] = useState('Enter Meme Name');
+  const [inputMemeName, setInputMemeName] = useState('');
 
   function encodeMemeText(text) {
     const trimmed = text.trim();
@@ -31,10 +29,10 @@ export default function MemeGenerator() {
 
   return (
     <>
-      <div>
-        <h1>MemeGenerator</h1>
-      </div>
+      <h1 className="title">MemeGenerator</h1>
+
       <form
+        className="meme-form"
         onSubmit={(event) => {
           event.preventDefault();
           setMemeName(inputMemeName);
@@ -42,6 +40,7 @@ export default function MemeGenerator() {
       >
         <label htmlFor="memeTemplate">Meme template</label>
         <input
+          placeholder="Enter Meme Name"
           id="memeTemplate"
           value={inputMemeName}
           onChange={(event) => {
@@ -51,54 +50,38 @@ export default function MemeGenerator() {
         <div>
           <button>Generate Template</button>
         </div>
-        <div>Meme Name: {memeName}</div>
+        <div className="meme-name">Meme Name: {memeName}</div>
       </form>
 
-      {/* <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          setTopText(inputTopText);
-        }}
-      > */}
       <label htmlFor="topText">Top text</label>
       <input
+        placeholder="Enter Top Text"
         id="topText"
         value={topText}
         onChange={(event) => {
           setTopText(event.target.value);
         }}
       />
-      {/* <div>
-          <button>Set Top Text</button>
-        </div> */}
-      <div>Top Text: {topText}</div>
-      {/* </form> */}
 
-      {/* <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          setBottomText(inputBottomText);
-        }}
-      > */}
+      <div className="top-text">Top Text: {topText}</div>
       <label htmlFor="bottomText">Bottom text</label>
       <input
+        placeholder="Enter Bottom Text"
         id="bottomText"
         value={bottomText}
         onChange={(event) => {
           setBottomText(event.target.value);
         }}
       />
-      {/* <div>
-          <button>Set Bottom Text</button>
-        </div> */}
-      <div>Bottom Text: {bottomText}</div>
-      {/* </form> */}
+
+      <div className="bottom-text">Bottom Text: {bottomText}</div>
+
       <img
+        className="image"
         data-test-id="meme-image"
         src={buildMemeUrl(memeName, topText, bottomText)}
         alt="meme.png"
       />
-
       <div>
         <button
           onClick={() => {
